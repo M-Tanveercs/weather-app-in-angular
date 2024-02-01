@@ -1,0 +1,74 @@
+
+<div class="header">
+  <h1>Angular Weather App</h1>
+</div>
+<div class="container-fluid" >
+  
+    <div class="row content ">
+        <div class="col-3 left">
+ <div class="top">
+    <h1 class="day"> {{todayDate|date:'EEEE' }} </h1>
+    <p class="date">{{ todayDate | date:'MMMM yyyy' }} </p>
+    <i class="wi wi-owm-${data.weather[0].icon.at(-1) === `d` ? `day-` + data.weather[0].id : `night-` + data.weather[0].id} display-1"></i>
+
+    <p class="location"> {{ weatherData.name }}, {{ weatherData.sys?.country }}</p>
+ </div>
+ <div class="botom">
+<h1 class="tem">{{ weatherData.main.temp }}<sup>o</sup>C </h1>
+<p class="sunny"> {{ getWeatherDescription(weatherData.weather) }}</p>
+
+
+ </div>
+        </div>
+        <div class="col-7 right">
+          <div class="innercontent row">
+            <div class="left2 col-3">
+                <p>precipitation </p>
+                <p> humidity</p>
+                <p> Wind </p>
+                <p>Feels Like:</p>
+               </div>
+               <div class="col-3" >
+                <p> {{ getRainValue(weatherData) }}</p>
+                <p> {{ weatherData.main.humidity }}%</p>
+                <p> {{ weatherData.wind.speed }} m/s, {{ weatherData.wind.deg }}°</p>
+              <p> {{ weatherData.main.feels_like }}°C</p>
+               </div>
+               <div class="left2 col-2">
+                <p>pressure </p>
+                <p> Sunrise</p>
+                <p> Sunset </p>
+               
+               </div>
+               <div class="col-3" >
+                <p>{{weatherData.main.pressure}} mb</p>
+                <p> {{ getFormattedTime(weatherData.sys?.sunrise) }}</p>
+  <p> {{ getFormattedTime(weatherData.sys?.sunset) }}</p>
+              
+               </div>
+          </div>
+         <div class="btn-in">
+          <div class="container" (click)="changeLocation()">
+            <div class="center row">
+              <button class="btn col-2" >
+                <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
+                  <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
+                  <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
+                </svg>
+                <span>ENTER LOCATION</span>
+              </button>
+            </div>
+          </div>
+        
+          <div class="input-group mt-5" *ngIf="isChangeLocation" >
+            
+            
+            <input type="text" class="form-control" #location   placeholder="location" aria-label="Username" aria-describedby="basic-addon1">
+            <span class="input-group-text" id="basic-addon1" (click)="getlocation(location.value)" ><i class="bi bi-arrow-right-short"></i></span>
+          </div>
+         </div>
+          
+        </div>
+
+    </div>
+
